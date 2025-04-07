@@ -1,11 +1,11 @@
-package project.lmsback.controller;
+package project.lmsback.controller.student;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class IndexController {
+public class MessageController {
 
     @GetMapping("/")
     public String index() {
