@@ -1,4 +1,4 @@
 package project.lmsback.controller.admin;
 
-public class BoardController {
+public class ad_BoardController {
 }
