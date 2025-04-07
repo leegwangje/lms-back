@@ -1,26 +1,37 @@
 package project.lmsback.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "COMMENT")
+@Table(name = "comment")
 public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Integer commentId;
 
+    @Column(name = "content")
     private String content;
-    private String writer;
+
+    @Column(name = "created_at")
     private String createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "POST_ID")
-    private Post post;
+    @Column(name = "writer")
+    private String writer;
 
-    @ManyToOne
-    @JoinColumn(name = "PARENT_COMMENT_ID")
+    // 🔁 대댓글 (self-referencing)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_comment_id")
     private Comment parentComment;
 
-    // Getter/Setter
+    // 📝 게시글
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 }

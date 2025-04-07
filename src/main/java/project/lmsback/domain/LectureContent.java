@@ -1,40 +1,51 @@
 package project.lmsback.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "LECTURE_CONTENT")
+@Table(name = "lecture_content")
 public class LectureContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "lecture_management_id")
     private Integer lectureManagementId;
 
-    @Column(name = "YOUTUBE_VIDEO_ID")
+    @Column(name = "youtube_video_id")
     private String youtubeVideoId;
 
-    @Column(name = "LECTURE_CALL_URL")
+    @Column(name = "lecture_call_url")
     private String lectureCallUrl;
 
-    @Column(name = "ONLINE_STATUS_TYPE")
+    @Column(name = "online_status_type")
     private String onlineStatusType;
 
-    @Column(name = "CHAPTER_NAME")
+    @Column(name = "chapter_name")
     private String chapterName;
 
-    @Column(name = "ORDER_NAME")
+    @Column(name = "order_name")
     private String orderName;
 
-    @ManyToOne
-    @JoinColumn(name = "WEEK_ID")
-    private LectureWeek week;
-
-    @Column(name = "VIDEO_DURATION")
+    @Column(name = "video_duration")
     private String videoDuration;
 
-    @ManyToOne
-    @JoinColumn(name = "FILE_ID")
+    // ✅ week_id 외래키
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "week_id")
+    private LectureWeek week;
+
+    // ✅ file_id 외래키
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_id")
     private File file;
 
-    // Getter/Setter
+    // ✅ lecture_id 외래키 (빠져있던 부분)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lecture_id")
+    private LectureInfo lecture;
 }

@@ -34,9 +34,21 @@
 #                                                    (3, 1002),
 #                                                    (4, 1002);
 #
-# INSERT INTO lecture_content (lecture_management_id, youtube_video_id, lecture_call_url, online_status_type, chapter_name, order_name, week_id, video_duration, file_id) VALUES
-#                                                                                                                                                                             (10001, 'vid-abc123', 'https://youtube.com/watch?v=abc123', '온라인', '1장: 알고리즘 개요', '1차시', 1, '15:00', 1),
-#                                                                                                                                                                             (10002, 'vid-def456', 'https://youtube.com/watch?v=def456', '온라인', '2장: 정렬 알고리즘', '2차시', 2, '18:45', 2);
+# INSERT INTO lecture_content (
+#     lecture_management_id,
+#     youtube_video_id,
+#     lecture_call_url,
+#     online_status_type,
+#     chapter_name,
+#     order_name,
+#     week_id,
+#     video_duration,
+#     file_id,
+#     lecture_id
+# ) VALUES
+#       (10001, 'vid-abc123', 'https://youtube.com/watch?v=abc123', '온라인', '1장: 알고리즘 개요', '1차시', 1, '15:00', 1, 1001),
+#       (10002, 'vid-def456', 'https://youtube.com/watch?v=def456', '온라인', '2장: 정렬 알고리즘', '2차시', 2, '18:45', 2, 1001);
+
 #
 # INSERT INTO register_class (lecture_id, apply_date, attendance_rate, attendance_score, assignment_score, percentile_score, grade_evaluation, gpa_score, stdt_id) VALUES
 #                                                                                                                                                                      (1001, '2025-03-01', 95, 90, 85, 88, 'A+', '3.5', 20250001),

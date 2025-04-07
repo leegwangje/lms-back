@@ -1,28 +1,41 @@
 package project.lmsback.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "LECTURE_ASSIGNMENT")
+@Table(name = "lecture_assignment")
 public class LectureAssignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "assignment_id")
     private Integer assignmentId;
 
-    private String title;
+    @Column(name = "description")
     private String description;
-    private String startDatetime;
+
+    @Column(name = "end_datetime")
     private String endDatetime;
+
+    @Column(name = "start_datetime")
+    private String startDatetime;
+
+    @Column(name = "submission_count")
     private Integer submissionCount;
 
-    @ManyToOne
-    @JoinColumn(name = "FILE_ID")
+    @Column(name = "title")
+    private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_id")
     private File file;
 
-    @ManyToOne
-    @JoinColumn(name = "LECTURE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lecture_id")
     private LectureInfo lecture;
-
-    // Getter/Setter
 }
