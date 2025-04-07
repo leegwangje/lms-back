@@ -3,7 +3,6 @@ package project.lmsback.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -11,18 +10,37 @@ import java.time.LocalDateTime;
 public class RegisterClass {
 
     @Id
-    @Column(name = "REGISTER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer registerId;
 
-    // ✅ 필드명이 반드시 "stdtId" 여야 함
-    @Column(name = "STDT_ID")
-    private Integer stdtId;
-
-    @Column(name = "APPLY_DATE")
-    private LocalDateTime applyDate;
-
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "LECTURE_ID")
     private LectureInfo lecture;
 
+    @ManyToOne
+    @JoinColumn(name = "STDT_ID")
+    private StudentInfo student;
+
+    @Column(name = "APPLY_DATE")
+    private String applyDate;
+
+    @Column(name = "ATTENDANCE_RATE")
+    private Integer attendanceRate;
+
+    @Column(name = "ATTENDANCE_SCORE")
+    private Integer attendanceScore;
+
+    @Column(name = "ASSIGNMENT_SCORE")
+    private Integer assignmentScore;
+
+    @Column(name = "PERCENTILE_SCORE")
+    private Integer percentileScore;
+
+    @Column(name = "GRADE_EVALUATION")
+    private String gradeEvaluation;
+
+    @Column(name = "GPA_SCORE")
+    private String gpaScore;
+
+    // Getter/Setter
 }

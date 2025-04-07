@@ -1,31 +1,77 @@
 package project.lmsback.domain;
 
-import lombok.AllArgsConstructor;
+import javax.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-
-@Setter
-@Getter
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "LECTURE_INFO")
+@Getter
+@Setter
 public class LectureInfo {
 
-    // ✅ Getter & Setter
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LECTURE_ID")
     private Integer lectureId;
 
-    @Column(name = "SUBJECT_NAME")
-    private String subjectName;
+    @Column(name = "CLASS_YEAR")
+    private String classYear;
+
+    @Column(name = "SEMESTER_CD")
+    private Integer semesterCd;
+
+    @Column(name = "COURSE_TYPE")
+    private String courseType;
 
     @Column(name = "DEPARTMENT")
     private String department;
 
-    // 🔧 기타 필드 필요하면 여기 추가
+    @Column(name = "SUBJECT_CODE")
+    private String subjectCode;
+
+    @Column(name = "SUBJECT_NAME")
+    private String subjectName;
+
+    @Column(name = "SUBJECT_LEVEL")
+    private String subjectLevel;
+
+    @Column(name = "CREDIT")
+    private String credit;
+
+    @Column(name = "MAX_CAPACITY")
+    private String maxCapacity;
+
+    @Column(name = "TIMETABLE")
+    private String timetable;
+
+    @Column(name = "START_DATE")
+    private String startDate;
+
+    @Column(name = "END_DATE")
+    private String endDate;
+
+    @Column(name = "MIN_CAPACITY")
+    private String minCapacity;
+
+    @Column(name = "GRADE_LEVEL")
+    private String gradeLevel;
+
+    @Column(name = "SUBJECT_PLAN")
+    private String subjectPlan;
+
+    @ManyToOne
+    @JoinColumn(name = "PROF_ID")
+    private ProfInfo professor;
+
+    @ManyToOne
+    @JoinColumn(name = "FILE_ID")
+    private File file;
+
+    @Column(name = "EVALUATOR_A")
+    private Integer evaluatorA;
+
+    @Column(name = "EVALUATOR_B")
+    private Integer evaluatorB;
 
 }

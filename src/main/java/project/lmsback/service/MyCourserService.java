@@ -9,7 +9,6 @@ import project.lmsback.domain.RegisterClass;
 import project.lmsback.repository.RegisterClassRepository;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,7 +20,9 @@ public class MyCourserService {
 
     public List<MycourseDTO> getCoursesByStudentId(Integer stdtId) {
         log.info("getCoursesByStudentId: " + stdtId);
-        List<RegisterClass> registered = registerClassRepository.findByStdtId(stdtId);
+
+        // 수정된 부분: findByStudent_StdtId로 변경
+        List<RegisterClass> registered = registerClassRepository.findByStudent_StdtId(stdtId);
 
         log.info("등록된 수강 강의 개수: {}", registered.size());
 
