@@ -1,22 +1,33 @@
 package project.lmsback.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "FILE")
+@Table(name = "file")
 public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "file_id")
     private Integer fileId;
 
-    @Column(name = "FILE_ORG_ID")
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "file_org_id")
     private Integer fileOrgId;
 
-    private String uuid;
-    private String fileName;
+    @Column(name = "file_path")
     private String filePath;
+
+    @Column(name = "file_size")
     private Integer fileSize;
 
-    // Getter/Setter
+    @Column(name = "uuid")
+    private String uuid;
 }
