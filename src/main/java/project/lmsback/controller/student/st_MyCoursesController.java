@@ -3,9 +3,7 @@ package project.lmsback.controller.student;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import project.lmsback.domain.LectureContentDTO;
-import project.lmsback.domain.LectureWeekDTO;
-import project.lmsback.domain.MycourseDTO;
+import project.lmsback.domain.*;
 import project.lmsback.service.MyCourserService;
 
 import java.util.List;
@@ -41,4 +39,16 @@ public class st_MyCoursesController {
     public List<LectureContentDTO> getContents(@PathVariable Integer weekId) {
         return myCourserService.getContentsByWeekId(weekId);
     }
+
+    @GetMapping("/{lectureId}/assignmnets")
+    public List<AssignmentDTO> getAssignmnets(@PathVariable Integer lectureId) {
+        return myCourserService.getAssignmentsBulectureId(lectureId);
+    }
+    @GetMapping("/assignments/{assignmentId}/submit")
+    public AssignmentSubmitDTO getSubmitStatus(@PathVariable Integer assignmentId) {
+        Integer stdtId = 20250001; // 로그인된 학생
+        return myCourserService.getSubmitStatus(assignmentId, stdtId);
+    }
+
+
 }
