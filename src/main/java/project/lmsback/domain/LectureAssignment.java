@@ -38,4 +38,10 @@ public class LectureAssignment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id")
     private LectureInfo lecture;
+
+    @ManyToOne
+    @JoinColumn(name = "WEEK_ID")
+    private LectureWeek week;
+
+
 }

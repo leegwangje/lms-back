@@ -37,4 +37,8 @@ public class AssignmentSubmit {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STDT_ID")
     private StudentInfo student;
+
+
+    public void setStdtId(Integer stdtId) {
+    }
 }
