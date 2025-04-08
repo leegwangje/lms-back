@@ -14,4 +14,6 @@ public interface MyCourserService {
     List<MycourseDTO> getCoursesByStudentId(Integer stdtId);
     List<LectureWeekDTO> getWeeksByLectureId(Integer lectureId);
     List<LectureContentDTO> getContentsByWeekId(Integer weekId);
+    List<AssignmentDTO> getAssignmentsBulectureId(Integer weekId);
+    AssignmentSubmitDTO getSubmitStatus(Integer assignmentId, Integer stdtId);
 }

@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import project.lmsback.domain.*;
-import project.lmsback.repository.LectureContentRepository;
-import project.lmsback.repository.LectureWeekRepository;
-import project.lmsback.repository.RegisterClassRepository;
+import project.lmsback.repository.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -18,6 +18,8 @@ public class MyCourserServiceImpl implements MyCourserService {
     private final RegisterClassRepository registerClassRepository;
     private final LectureWeekRepository lectureWeekRepository;
     private final LectureContentRepository lectureContentRepository;
+    private final LectureAssignmentRepository lectureAssignmentRepository;
+    private final AssignmentSubmitRepository assignmentSubmitRepository;
 
     @Override
     public List<MycourseDTO> getCoursesByStudentId(Integer stdtId) {
@@ -68,6 +70,43 @@ public class MyCourserServiceImpl implements MyCourserService {
                 })
                 .toList();
     }
+
+    @Override
+    public List<AssignmentDTO> getAssignmentsBulectureId(Integer lectureId) {
+        return lectureAssignmentRepository.findByLecture_LectureId(lectureId).stream()
+                .map(assignment -> {
+                    AssignmentDTO dto = new AssignmentDTO();
+                    dto.setAssignmentId(assignment.getAssignmentId());
+                    dto.setTitle(assignment.getTitle());
+                    dto.setDescription(assignment.getDescription());
+                    dto.setStartDatetime(assignment.getStartDatetime());
+                    dto.setEndDatetime(assignment.getEndDatetime());
+                    dto.setSubmissionCount(assignment.getSubmissionCount());
+                    dto.setLectureId(assignment.getLecture().getLectureId());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public AssignmentSubmitDTO getSubmitStatus(Integer assignmentId, Integer stdtId) {
+        Optional<AssignmentSubmit> submitOpt = assignmentSubmitRepository.findByAssignment_AssignmentIdAndStudent_StdtId(assignmentId, stdtId);
+
+        AssignmentSubmitDTO dto = new AssignmentSubmitDTO();
+
+        if (submitOpt.isPresent()) {
+            AssignmentSubmit submit = submitOpt.get();
+            dto.setSubmitted(true);
+            dto.setScore(submit.getScore());
+            dto.setSubmissionType(submit.getSubmissionType());
+            dto.setSubmissionDate(submit.getSubmissionDate());
+        } else {
+            dto.setSubmitted(false);
+        }
+
+        return dto;
+    }
+
 }
 
 
