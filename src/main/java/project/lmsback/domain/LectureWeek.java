@@ -1,7 +1,10 @@
 package project.lmsback.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "LECTURE_WEEK")
 public class LectureWeek {
