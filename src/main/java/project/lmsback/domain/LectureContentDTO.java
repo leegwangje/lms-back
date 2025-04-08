@@ -10,4 +10,6 @@ public class LectureContentDTO {
     private String orderName;
     private String youtubeVideoId;
     private String videoDuration;
+    private Integer fileId;
+    private String fileName;
 }
