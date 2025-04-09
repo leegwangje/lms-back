@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.lmsback.domain.LectureInfo;
+import project.lmsback.domain.LectureListDTO;
 import project.lmsback.domain.ProfInfo;
 import project.lmsback.service.LectureInfoService;
 import project.lmsback.service.ProfInfoService;
@@ -60,11 +61,11 @@ public class pf_BoardController {
         System.err.println("contoller 진입");
         ResponseEntity response = ResponseEntity.badRequest().build();
 
+        List<LectureListDTO> dtolist = lectureInfoService.lectureList(1001);
 
-
-        lectureInfoService.lectureList(1001);
-
-
+        if (dtolist.size() > 0) {
+            return new ResponseEntity<>(dtolist, HttpStatus.OK);
+        }
         return response;
     }
 

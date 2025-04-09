@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface LectureContentRepository extends JpaRepository<LectureContent, Integer> {
     List<LectureContent> findByWeek_WeekId(Integer weekId);
+    List<LectureContent> findByLecture_LectureId(Integer lectureId);
 }
