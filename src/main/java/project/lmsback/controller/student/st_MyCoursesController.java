@@ -38,10 +38,18 @@ public class st_MyCoursesController {
         return myCourserService.getWeeksByLectureId(lectureId);
     }
 
-    // 특정 주차의 콘텐츠 목록 조회
-    @GetMapping("/weeks/{weekId}/contents")
-    public List<LectureContentDTO> getContents(@PathVariable Integer weekId) {
-        return myCourserService.getContentsByWeekId(weekId);
+//    // 특정 주차의 콘텐츠 목록 조회
+//    @GetMapping("/weeks/{weekId}/contents")
+//    public List<LectureContentDTO> getContents(@PathVariable Integer weekId) {
+//        return myCourserService.getContentsByWeekId(weekId);
+//    }
+
+    // 특정 강의와 주차의 콘텐츠 목록 조회
+    @GetMapping("/{lectureId}/week/{weekNumber}/contents")
+    public List<LectureContentDTO> getContentsByLectureAndWeek(
+            @PathVariable Integer lectureId,
+            @PathVariable Integer weekNumber) {
+        return myCourserService.getContentsByLectureAndWeek(lectureId, weekNumber);
     }
 
     @GetMapping("/{lectureId}/assignments")
@@ -54,22 +62,34 @@ public class st_MyCoursesController {
         return myCourserService.getSubmitStatus(assignmentId, stdtId);
     }
 
-    // 특정 주차(weekId)의 과제 정보 반환
-    @GetMapping("/weeks/{weekId}/assignment")
-    public ResponseEntity<AssignmentDTO> getAssignmentByWeek(@PathVariable Integer weekId) {
-        AssignmentDTO assignment = myCourserService.getAssignmentByWeekId(weekId);
+//    // 특정 주차(weekId)의 과제 정보 반환
+//    @GetMapping("/weeks/{weekId}/assignment")
+//    public ResponseEntity<AssignmentDTO> getAssignmentByWeek(@PathVariable Integer weekId) {
+//        AssignmentDTO assignment = myCourserService.getAssignmentByWeekId(weekId);
+//        return ResponseEntity.ok(assignment);
+//    }
+
+    @GetMapping("/{lectureId}/week/{weekNumber}/assignment")
+    public ResponseEntity<AssignmentDTO> getAssignmentByLectureAndWeek(
+            @PathVariable Integer lectureId,
+            @PathVariable Integer weekNumber
+    ) {
+        AssignmentDTO assignment = myCourserService.getAssignmentByLectureAndWeek(lectureId, weekNumber);
         return ResponseEntity.ok(assignment);
     }
+
+
+
 
     //
     @PostMapping("/submit")
     public ResponseEntity<String> submitAssignment(
             @RequestParam("file") MultipartFile file,
             @RequestParam("lectureId") Integer lectureId,
-            @RequestParam("weekId") Integer weekId,
+            @RequestParam("weekNumber") Integer weekNumber,
             @RequestParam("stdtId") Integer stdtId
     ) {
-        myCourserService.saveAssignmentSubmit(file, lectureId, weekId, stdtId);
+        myCourserService.saveAssignmentSubmit(file, lectureId, weekNumber, stdtId);
         return ResponseEntity.ok("제출 완료");
     }
 
