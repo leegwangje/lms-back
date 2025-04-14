@@ -40,6 +40,6 @@ public interface RegisterClassRepository extends JpaRepository<RegisterClass, In
     boolean existsByStdtId_StdtIdAndLectureId_LectureId(Integer stdtId, Integer lectureId);
 
 
-    Optional<RegisterClass> findByLecture_LectureIdAndStudent_StdtId(Integer lectureId, Integer stdtId);
+    Optional<RegisterClass> findByLectureId_LectureIdAndStdtId_StdtId(Integer lectureId, Integer stdtId);
 
 }
