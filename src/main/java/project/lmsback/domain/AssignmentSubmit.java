@@ -1,7 +1,10 @@
 package project.lmsback.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "ASSIGNMENT_SUBMIT")
 public class AssignmentSubmit {
@@ -18,17 +21,24 @@ public class AssignmentSubmit {
 
     private Integer score;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSIGNMENT_ID")
     private LectureAssignment assignment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FILE_ID")
     private File file;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LECTURE_ID")
     private LectureInfo lecture;
 
-    // Getter/Setter
+    // ✅ 추가: 학생 정보 연결 (이게 없어서 오류났음)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "STDT_ID")
+    private StudentInfo student;
+
+
+    public void setStdtId(Integer stdtId) {
+    }
 }

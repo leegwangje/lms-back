@@ -1,9 +1,8 @@
 package project.lmsback.repository;
 
-
-
-
 import org.apache.ibatis.annotations.Param;
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +17,7 @@ public interface RegisterClassRepository extends JpaRepository<RegisterClass, In
 
     // StudentInfo 엔티티와 연결된 stdtId로 수강 강좌를 조회
     List<RegisterClass> findByStudent_StdtId(Integer stdtId);
+
 
     // StudentInfo 엔티티와 연결된 stdtId로 수강 강좌를 조회
     List<RegisterClass> findByStdtId_StdtId(Integer stdtId);
@@ -40,6 +40,6 @@ public interface RegisterClassRepository extends JpaRepository<RegisterClass, In
     boolean existsByStdtId_StdtIdAndLectureId_LectureId(Integer stdtId, Integer lectureId);
 
 
-
+    Optional<RegisterClass> findByLecture_LectureIdAndStudent_StdtId(Integer lectureId, Integer stdtId);
 
 }
