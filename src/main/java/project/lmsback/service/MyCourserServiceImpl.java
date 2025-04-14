@@ -32,7 +32,7 @@ public class MyCourserServiceImpl implements MyCourserService {
         log.info("등록된 수강 강의 개수: {}", registered.size());
 
         return registered.stream().map(reg -> {
-            LectureInfo lecture = reg.getLecture();
+            LectureInfo lecture = reg.getLectureId();
 
             if (lecture == null) {
                 log.warn("lecture is null for registerId: {}", reg.getRegisterId());

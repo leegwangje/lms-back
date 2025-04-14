@@ -29,7 +29,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         log.info("🎯 출석 처리 로직 진입 - lectureId={}, contentId={}, stdtId={}", lectureId, contentId, stdtId);
 
         RegisterClass registerClass = registerClassRepository
-                .findByLecture_LectureIdAndStudent_StdtId(lectureId, stdtId)
+                .findByLectureId_LectureIdAndStdtId_StdtId(lectureId, stdtId)
                 .orElseThrow(() -> new RuntimeException("❌ 수강 정보를 찾을 수 없습니다."));
 
         LectureContent content = lectureContentRepository.findById(contentId)
@@ -59,7 +59,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         List<AttendanceStatusDTO> result = new ArrayList<>();
 
         for (RegisterClass reg : registerClasses) {
-            LectureInfo lecture = reg.getLecture();
+            LectureInfo lecture = reg.getLectureId();
             List<LectureContent> contents = lectureContentRepository.findByLecture_LectureId(lecture.getLectureId());
 
             int total = contents.size();
