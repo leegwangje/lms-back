@@ -14,13 +14,11 @@ import java.util.Optional;
 
 
 public interface RegisterClassRepository extends JpaRepository<RegisterClass, Integer> {
-
-
-
-
     // StudentInfo 엔티티와 연결된 stdtId로 수강 강좌를 조회
     List<RegisterClass> findByStdtId_StdtId(Integer stdtId);
 
+
+    List<RegisterClass> findByLectureId_LectureId(Integer lectureId);
 
     @Query("SELECT new project.lmsback.domain.EnrolledCourseDTO(" +
             "r.registerId, l.lectureId, l.courseType, l.department, l.subjectCode, l.subjectName, l.subjectLevel, l.credit, r.applyDate, l.timetable) " +

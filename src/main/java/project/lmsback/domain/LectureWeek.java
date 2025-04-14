@@ -1,12 +1,14 @@
 package project.lmsback.domain;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "LECTURE_WEEK")
+@ToString
 public class LectureWeek {
 
     @Id

@@ -3,20 +3,18 @@ package project.lmsback.domain;
 import lombok.*;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @ToString
-public class AssignmentDTO {
-
+public class AssignmentUploadDTO {
     private Integer assignmentId;
+    private Integer week_id;
     private String title;
     private String description;
     private String startDatetime;
     private String endDatetime;
     private Integer submissionCount;
-    private Integer lectureId;
-
-
+    private Integer lecture_id;
 }
 

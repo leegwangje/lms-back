@@ -3,6 +3,7 @@ package project.lmsback.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "stdt_info")
+@ToString
 public class StudentInfo {
 
     @Id
