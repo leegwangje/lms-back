@@ -83,7 +83,4 @@ public class LectureInfo {
     public LectureInfo(Integer lectureId) {
         this.lectureId = lectureId;
     }
-
-
-
 }
