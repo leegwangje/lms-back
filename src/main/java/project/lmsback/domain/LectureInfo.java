@@ -74,4 +74,12 @@ public class LectureInfo {
     @Column(name = "EVALUATOR_B")
     private Integer evaluatorB;
 
+    // ✅ 기본 생성자
+    public LectureInfo() {
+    }
+
+    // ✅ ID만 받는 생성자
+    public LectureInfo(Integer lectureId) {
+        this.lectureId = lectureId;
+    }
 }

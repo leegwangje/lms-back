@@ -15,32 +15,32 @@ public class RegisterClass {
 
     @ManyToOne
     @JoinColumn(name = "LECTURE_ID")
-    private LectureInfo lecture;
+    private LectureInfo lectureId;
 
     @ManyToOne
     @JoinColumn(name = "STDT_ID")
-    private StudentInfo student;
+    private StudentInfo stdtId;
 
     @Column(name = "APPLY_DATE")
     private String applyDate;
 
     @Column(name = "ATTENDANCE_RATE")
-    private Integer attendanceRate;
+    private Integer attendanceRate=0;
 
     @Column(name = "ATTENDANCE_SCORE")
-    private Integer attendanceScore;
+    private Integer attendanceScore=0;
 
     @Column(name = "ASSIGNMENT_SCORE")
-    private Integer assignmentScore;
+    private Integer assignmentScore=0;
 
     @Column(name = "PERCENTILE_SCORE")
-    private Integer percentileScore;
+    private Integer percentileScore=0;
 
     @Column(name = "GRADE_EVALUATION")
-    private String gradeEvaluation;
+    private String gradeEvaluation="F";
 
     @Column(name = "GPA_SCORE")
-    private String gpaScore;
+    private Double gpaScore=0.0;
 
     // Getter/Setter
 }
