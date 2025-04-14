@@ -26,7 +26,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         log.info("🎯 출석 처리 로직 진입 - lectureId={}, contentId={}, stdtId={}", lectureId, contentId, stdtId);
 
         RegisterClass registerClass = registerClassRepository
-                .findByLecture_LectureIdAndStudent_StdtId(lectureId, stdtId)
+                .findByLectureId_LectureIdAndStdtId_StdtId(lectureId, stdtId)
                 .orElseThrow(() -> new RuntimeException("❌ 수강 정보를 찾을 수 없습니다."));
 
         LectureContent content = lectureContentRepository.findById(contentId)

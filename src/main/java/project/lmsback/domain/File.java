@@ -1,7 +1,6 @@
 package project.lmsback.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,6 +8,9 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "file")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class File {
 
     @Id

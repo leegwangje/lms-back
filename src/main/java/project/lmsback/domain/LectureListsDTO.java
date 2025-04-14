@@ -7,8 +7,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LectureListDTO {
-    private Integer weekId;//lectureweek
+public class LectureListsDTO {
+    private Integer lectureId;
+    private Integer weekNumber;//lectureweek
     private String order_name;//LECTURE_CONTENT
     private Integer file_id;//LECTURE_CONTENT
     private String file_name;//FILE

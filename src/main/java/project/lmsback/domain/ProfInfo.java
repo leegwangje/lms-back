@@ -1,11 +1,13 @@
 package project.lmsback.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "prof_info")
 public class ProfInfo {
 
@@ -37,7 +39,7 @@ public class ProfInfo {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 

@@ -2,6 +2,7 @@ package project.lmsback.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "lecture_content")
+@ToString
 public class LectureContent {
 
     @Id

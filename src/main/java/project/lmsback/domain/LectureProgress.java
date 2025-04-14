@@ -1,9 +1,12 @@
 package project.lmsback.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "LECTURE_PROGRESS")
+@Getter
 public class LectureProgress {
 
     @Id

@@ -9,7 +9,10 @@ import java.util.Optional;
 
 public interface RegisterClassRepository extends JpaRepository<RegisterClass, Integer> {
     // StudentInfo 엔티티와 연결된 stdtId로 수강 강좌를 조회
-    List<RegisterClass> findByStudent_StdtId(Integer stdtId);
+    List<RegisterClass> findByStdtId_StdtId(Integer stdtId);
 
-    Optional<RegisterClass> findByLecture_LectureIdAndStudent_StdtId(Integer lectureId, Integer stdtId);
+    Optional<RegisterClass> findByLectureId_LectureIdAndStdtId_StdtId(Integer lectureId, Integer stdtId);
+
+    List<RegisterClass> findByLectureId_LectureId(Integer lectureId);
+
 }
