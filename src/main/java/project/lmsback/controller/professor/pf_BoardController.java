@@ -1,3 +1,4 @@
+
 package project.lmsback.controller.professor;
 
 import lombok.RequiredArgsConstructor;
@@ -163,3 +164,4 @@ public class pf_BoardController {
 
     // 메세지 보내기 기능
 }
+
