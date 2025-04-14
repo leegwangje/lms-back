@@ -17,7 +17,7 @@ import java.util.Optional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final AdminRepository adminRepository;
-    private final ProfRepository profInfoRepository;
+//    private final ProfRepository profInfoRepository;
     private final StudentRepository studentInfoRepository;
     //private final PasswordEncoder passwordEncoder;
 
@@ -46,18 +46,18 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new CustomUserDetails(admin.getAdminId().toString(), admin.getPassword(), "ADMIN");
         }
 
-        // 2. 교수 체크
-        Optional<ProfInfo> profOpt = profInfoRepository.findByProfId(userId);
-        if (profOpt.isPresent()) {
-            ProfInfo professor = profOpt.get();
-            log.info(">>> [교수 로그인 확인]");
-            log.info("입력 ID: {}", userId);
-            log.info("DB ID: {}", professor.getProfId());
-            log.info("DB 비밀번호: {}", professor.getPassword());
-            log.info("matches 결과: {}", new BCryptPasswordEncoder().matches("1234", professor.getPassword()));
-            System.out.println(new BCryptPasswordEncoder().encode("1234"));
-            return new CustomUserDetails(professor.getProfId().toString(), professor.getPassword(), "PROFESSOR");
-        }
+//        // 2. 교수 체크
+//        Optional<ProfInfo> profOpt = profInfoRepository.findByProfId(userId);
+//        if (profOpt.isPresent()) {
+//            ProfInfo professor = profOpt.get();
+//            log.info(">>> [교수 로그인 확인]");
+//            log.info("입력 ID: {}", userId);
+//            log.info("DB ID: {}", professor.getProfId());
+//            log.info("DB 비밀번호: {}", professor.getPassword());
+//            log.info("matches 결과: {}", new BCryptPasswordEncoder().matches("1234", professor.getPassword()));
+//            System.out.println(new BCryptPasswordEncoder().encode("1234"));
+//            return new CustomUserDetails(professor.getProfId().toString(), professor.getPassword(), "PROFESSOR");
+//        }
 
         // 3. 학생 체크
         Optional<StudentInfo> studentOpt = studentInfoRepository.findByStdtId(userId);

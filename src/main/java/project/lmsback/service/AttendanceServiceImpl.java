@@ -55,7 +55,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<AttendanceStatusDTO> getAttendanceStatusByStudent(Integer stdtId) {
-        List<RegisterClass> registerClasses = registerClassRepository.findByStudent_StdtId(stdtId);
+        List<RegisterClass> registerClasses = registerClassRepository.findByStdtId_StdtId(stdtId);
         List<AttendanceStatusDTO> result = new ArrayList<>();
 
         for (RegisterClass reg : registerClasses) {
