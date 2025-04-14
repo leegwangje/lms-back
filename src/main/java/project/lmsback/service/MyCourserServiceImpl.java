@@ -27,7 +27,7 @@ public class MyCourserServiceImpl implements MyCourserService {
     public List<MycourseDTO> getCoursesByStudentId(Integer stdtId) {
         log.info("getCoursesByStudentId: {}", stdtId);
 
-        List<RegisterClass> registered = registerClassRepository.findByStudent_StdtId(stdtId);
+        List<RegisterClass> registered = registerClassRepository.findByStdtId_StdtId(stdtId);
 
         log.info("등록된 수강 강의 개수: {}", registered.size());
 
