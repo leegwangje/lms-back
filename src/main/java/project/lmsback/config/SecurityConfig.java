@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .antMatchers("/api/auth/**").permitAll() // 로그인, 회원가입은 누구나
                         .antMatchers("/api/admin/**").hasRole("ADMIN")
-                        .antMatchers("/api/professor/**").hasRole("PROFESSOR")
+                        .antMatchers("/api/prof/**").hasRole("PROFESSOR")
                         .antMatchers("/api/student/**").hasRole("STUDENT") // 🔥 student만
                         .antMatchers("/api/mycourses/**").hasRole("STUDENT") // 🔥 여기도 student만
                         .antMatchers("/api/attendance/**").hasRole("STUDENT") // 🔥 여기도 student만
