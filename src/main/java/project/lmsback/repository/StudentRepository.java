@@ -13,6 +13,6 @@ import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<StudentInfo, Integer> {
 
-    StudentInfo findByStdtId(Integer studentId);
+//    StudentInfo findByStdtId(Integer studentId);
     Optional<StudentInfo> findByStdtId(int stdtId);
 }

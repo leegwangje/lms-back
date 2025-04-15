@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import project.lmsback.domain.Attendance;
 import project.lmsback.domain.AttendanceRequestDto;
 import project.lmsback.domain.AttendanceStatusDTO;
 import project.lmsback.service.AttendanceService;

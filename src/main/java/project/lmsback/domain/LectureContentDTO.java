@@ -12,4 +12,5 @@ public class LectureContentDTO {
     private String videoDuration;
     private Integer fileId;
     private String fileName;
+    private Integer lectureId;
 }
