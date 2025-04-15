@@ -17,7 +17,7 @@ import java.util.Optional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final AdminRepository adminRepository;
-//    private final ProfRepository profInfoRepository;
+    private final ProfInfoRepository profInfoRepository;
     private final StudentRepository studentInfoRepository;
     //private final PasswordEncoder passwordEncoder;
 
@@ -46,6 +46,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new CustomUserDetails(admin.getAdminId().toString(), admin.getPassword(), "ADMIN");
         }
 
+        Optional<ProfInfo> profOpt = profInfoRepository.findByProfId(userId);
+        if (profOpt.isPresent()) {
+            ProfInfo professor = profOpt.get();
+            return new CustomUserDetails(professor.getProfId().toString(), professor.getPassword(), "PROFESSOR");
+        }
 //        // 2. 교수 체크
 //        Optional<ProfInfo> profOpt = profInfoRepository.findByProfId(userId);
 //        if (profOpt.isPresent()) {

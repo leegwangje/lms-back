@@ -15,4 +15,10 @@ public class ProfInfoServiceImpl implements ProfInfoService{
     public ProfInfo findByProfId(Integer profId) {
         return profInfoRepository.findByProfId(profId).orElse(null);
     }
+
+    @Override
+    public ProfInfo uploadProf(ProfInfo dto) {
+        ProfInfo saved = profInfoRepository.save(dto);
+        return saved;
+    }
 }

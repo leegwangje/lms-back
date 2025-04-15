@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface ProfInfoRepository extends JpaRepository<ProfInfo, Integer> {
     Optional<ProfInfo> findByProfId(int profId);
+
+
 }

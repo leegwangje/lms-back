@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface ProfInfoService {
     ProfInfo findByProfId(Integer profId);
+    ProfInfo uploadProf(ProfInfo profInfo);
 }

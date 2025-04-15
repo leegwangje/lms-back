@@ -5,10 +5,13 @@ import project.lmsback.domain.Attendance;
 import project.lmsback.domain.LectureContent;
 import project.lmsback.domain.RegisterClass;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
 
     Optional<Attendance> findByRegisterClassAndContent(RegisterClass registerClass, LectureContent content);
+
+    List<Attendance> findByRegisterClass(RegisterClass registerClass);
 
 }

@@ -1,7 +1,6 @@
 package project.lmsback.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,6 +8,10 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "lecture_assignment")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class LectureAssignment {
 
     @Id
@@ -26,7 +29,7 @@ public class LectureAssignment {
     private String startDatetime;
 
     @Column(name = "submission_count")
-    private Integer submissionCount;
+    private Integer submissionCount=0;
 
     @Column(name = "title")
     private String title;
