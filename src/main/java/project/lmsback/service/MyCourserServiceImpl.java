@@ -118,8 +118,8 @@ public class MyCourserServiceImpl implements MyCourserService {
     }
 
     @Override
-    public AssignmentDTO getAssignmentByWeekId(Integer weekId) {
-        LectureAssignment assignment = lectureAssignmentRepository.findByWeek_WeekId(weekId)
+    public AssignmentDTO getAssignmentByWeekId(Integer lectureId,Integer weekId) {
+        LectureAssignment assignment = lectureAssignmentRepository.findByWeek_WeekIdAndLecture_LectureId(lectureId,weekId)
                 .orElseThrow(() -> new RuntimeException("해당 주차의 과제가 존재하지 않습니다."));
 
         AssignmentDTO dto = new AssignmentDTO();
@@ -139,9 +139,12 @@ public class MyCourserServiceImpl implements MyCourserService {
                 .findByLecture_LectureIdAndWeekNumber(lectureId, weekNumber)
                 .orElseThrow(() -> new RuntimeException("해당 주차 정보를 찾을 수 없습니다."));
 
+        Integer weekId = week.getWeekId(); // ✅ 누락된 부분
+
         // 과제 엔티티 찾기
-        LectureAssignment assignment = lectureAssignmentRepository.findByWeek(week)
-                .orElseThrow(() -> new RuntimeException("해당 주차의 과제가 없습니다."));
+        LectureAssignment assignment = lectureAssignmentRepository
+                .findByWeek_WeekIdAndLecture_LectureId(weekId, lectureId)
+                .orElseThrow(() -> new RuntimeException("해당 주차의 과제가 존재하지 않습니다."));
 
         // 파일 엔티티 생성 (더미)
         File dummyFile = new File();
@@ -155,7 +158,7 @@ public class MyCourserServiceImpl implements MyCourserService {
         submit.setLecture(new LectureInfo(lectureId));
         submit.setFile(dummyFile);
         submit.setSubmissionType("온라인");
-        submit.setSubmissionDate(LocalDateTime.now().toString());
+        submit.setSubmissionDate(LocalDateTime.now().toString()); // 🔥 형식 통일 필요하면 DateTimeFormatter 사용해도 됨
         submit.setScore(null); // 아직 미채점
 
         // 학생 정보 설정
@@ -172,7 +175,7 @@ public class MyCourserServiceImpl implements MyCourserService {
                 .orElseThrow(() -> new RuntimeException("해당 주차 정보가 없습니다."));
 
         LectureAssignment assignment = lectureAssignmentRepository
-                .findByWeek(week)
+                .findByWeek_WeekIdAndLecture_LectureId(week.getWeekId(),lectureId)
                 .orElseThrow(() -> new RuntimeException("해당 주차에 과제가 없습니다."));
 
         AssignmentDTO dto = new AssignmentDTO();
@@ -191,7 +194,9 @@ public class MyCourserServiceImpl implements MyCourserService {
                 .findByLecture_LectureIdAndWeekNumber(lectureId, weekNumber)
                 .orElseThrow(() -> new RuntimeException("해당 주차 정보가 없습니다."));
 
-        return lectureContentRepository.findByWeek(week).stream()
+        return lectureContentRepository
+                .findByLecture_LectureIdAndWeek_WeekId(lectureId, week.getWeekId())  // ✅ lectureId + weekId 기준으로 조회
+                .stream()
                 .map(content -> {
                     LectureContentDTO dto = new LectureContentDTO();
                     dto.setLectureManagementId(content.getLectureManagementId());
@@ -205,6 +210,7 @@ public class MyCourserServiceImpl implements MyCourserService {
                         dto.setFileName(content.getFile().getFileName());
                     }
 
+                    dto.setLectureId(lectureId);
                     return dto;
                 })
                 .collect(Collectors.toList());

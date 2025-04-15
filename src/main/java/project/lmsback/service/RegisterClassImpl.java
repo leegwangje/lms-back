@@ -9,6 +9,7 @@ import project.lmsback.repository.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +38,8 @@ public class RegisterClassImpl implements RegisterClassService{
             long totalWeeks = lectureweeks.size();
 
             for (RegisterClass registerClass : registerClassList) {
-                StudentInfo classStdtList = studentRepository.findByStdtId(registerClass.getStdtId().getStdtId());
+                StudentInfo studentInfo = studentRepository.findByStdtId(registerClass.getStdtId().getStdtId())
+                        .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
 
                 List<Attendance> attendances = attendanceRepository.findByRegisterClass(registerClass);
 
@@ -60,17 +62,16 @@ public class RegisterClassImpl implements RegisterClassService{
                 double submitRate = totalAssignments > 0 ? (double) studentsubmitcount / totalAssignments : 0.0;
 
                 StudentProfileDTO dto = StudentProfileDTO.builder()
-                        .stdtId(registerClass.getStdtId().getStdtId())
-                        .stdtName(registerClass.getStdtId().getStdtName())
-                        .email(classStdtList.getEmail())
-                        .major(classStdtList.getMajor())
-                        .hpNo(classStdtList.getHpNo())
+                        .stdtId(studentInfo.getStdtId())
+                        .stdtName(studentInfo.getStdtName())
+                        .email(studentInfo.getEmail())
+                        .major(studentInfo.getMajor())
+                        .hpNo(studentInfo.getHpNo())
                         .progressRate(attendanceRate)
                         .submissionRate(submitRate)
                         .build();
 
-                log.info("등록된 학생 ID: {}", registerClass.getStdtId().getStdtId());
-
+                log.info("등록된 학생 ID: {}", studentInfo.getStdtId());
                 log.info("현재까지 result size: {}", result.size());
 
                 result.add(dto);
@@ -78,6 +79,7 @@ public class RegisterClassImpl implements RegisterClassService{
         }
         return result;
     }
+
 
     @Override
     public List<StudentProfileDTO> classMassageList(Integer lectureId) {

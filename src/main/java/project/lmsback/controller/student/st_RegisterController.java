@@ -135,4 +135,3 @@ public class st_RegisterController {
         return ResponseEntity.ok(lectures);
     }
 }
-

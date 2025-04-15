@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface LectureAssignmentRepository extends JpaRepository<LectureAssignment, Integer> {
     List<LectureAssignment> findByLecture_LectureId(Integer lectureId);
-    Optional<LectureAssignment> findByWeek_WeekId(Integer weekId);
+    Optional<LectureAssignment> findByWeek_WeekIdAndLecture_LectureId(Integer lectureId,Integer weekId);
 
     LectureAssignment save(LectureAssignment lectureAssignment);
 
