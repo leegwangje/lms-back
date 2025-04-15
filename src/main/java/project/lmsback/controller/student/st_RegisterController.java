@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.lmsback.domain.*;
+import project.lmsback.repository.RegisterCartRepository;
 import project.lmsback.repository.StudentRepository;
 import project.lmsback.service.LectureService;
 import project.lmsback.service.RegisterCartService;
@@ -28,6 +29,7 @@ public class st_RegisterController {
     private final RegisterService registerService;
     private final StudentRepository studentRepository;
     private final RegisterCartService registerCartService;
+    private final RegisterCartRepository registerCartRepository;
 
     // 전체 개설 강좌 목록
     @GetMapping("/enrollment/list")
@@ -86,15 +88,16 @@ public class st_RegisterController {
     }
 
     // 수강신청 내역
-    @GetMapping("/enrolledList")
-    public ResponseEntity<?> enrolledList(@RequestParam Integer stdtId) {
+    @GetMapping("/enrolledList/{stdtId}")
+    public ResponseEntity<?> enrolledList(@PathVariable Integer stdtId) {
+        log.info("값<<<<<<" , stdtId);
         List<EnrolledCourseDTO> enrolledList = registerService.getEnrolledCoursesByStdtId(stdtId);
         return new ResponseEntity<>(enrolledList, HttpStatus.OK);
     }
 
     // 수강취소
-    @GetMapping("/remove")
-    public ResponseEntity<?> remove(@RequestParam Integer stdtId,
+    @GetMapping("/remove/{stdtId}")
+    public ResponseEntity<?> remove(@PathVariable Integer stdtId,
                                     @RequestParam Integer lectureId) {
         try {
             registerService.deleteEnrollment(stdtId, lectureId);
@@ -106,8 +109,9 @@ public class st_RegisterController {
 
     // 장바구니에서 수강신청 페이지에 불러오기
 
-    @GetMapping("/cart/list")
-    public ResponseEntity<?> getCartList(@RequestParam Integer stdtId) {
+    @GetMapping("/cart/list/{stdtId}")
+    public ResponseEntity<?> getCartList(@PathVariable Integer stdtId) {
+
         try {
             List<RegisterCartDTO> cartList = registerCartService.getCartDTOListByStdtId(stdtId);
             return ResponseEntity.ok(cartList);
@@ -128,10 +132,24 @@ public class st_RegisterController {
         }
     }
 
-    // 장바구니용 강의 목록 조회
+    // 장바구니용 강의 전체 목록 조회
     @GetMapping("/cart")
     public ResponseEntity<List<LectureDTO>> getCartLectureList() {
         List<LectureDTO> lectures = lectureService.readLecture(); // 현재는 전체 강의 목록 리턴
+        return ResponseEntity.ok(lectures);
+    }
+
+    @DeleteMapping("/cart/remove")
+    public ResponseEntity<?> removeCartItem(
+            @RequestParam Integer stdtId,
+            @RequestParam Integer lectureId
+    ) {
+        registerCartService.deleteCartItem(stdtId, lectureId);
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping("/cart/lectures/{stdtId}")
+    public ResponseEntity<?> getCartLectureList(@PathVariable Integer stdtId) {
+        List<LectureDTO> lectures = registerCartRepository.findLectureDTOsInCartByStdtId(stdtId);
         return ResponseEntity.ok(lectures);
     }
 }
