@@ -26,32 +26,46 @@ public class RegisterCartServiceImpl implements RegisterCartService {
 
     @Override
     public void saveCartPriorities(List<RegisterCartDTO> priorityList) {
-        for (RegisterCartDTO registerCartDTO : priorityList) {
-
+        for (RegisterCartDTO dto : priorityList) {
             log.info("📦 DTO: stdtId={}, lectureId={}, priority={}",
-                    registerCartDTO.getStdtId(), registerCartDTO.getLectureId(), registerCartDTO.getPriorityOrder());
+                    dto.getStdtId(), dto.getLectureId(), dto.getPriorityOrder());
 
-            StudentInfo student = studentRepository.findByStdtId(registerCartDTO.getStdtId())
+            StudentInfo student = studentRepository.findByStdtId(dto.getStdtId())
                     .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
 
-            LectureInfo lecture = lectureRepository.findByLectureId(registerCartDTO.getLectureId())
+            LectureInfo lecture = lectureRepository.findByLectureId(dto.getLectureId())
                     .orElseThrow(() -> new IllegalArgumentException("해당 강의가 존재하지 않습니다."));
 
             RegisterCart cart = registerCartRepository.findByStudentAndLecture(student, lecture)
-                    .orElse(new RegisterCart());
+                    .orElseGet(() -> {
+                        RegisterCart newCart = new RegisterCart();
+                        newCart.setStudent(student);
+                        newCart.setLecture(lecture);
+                        return newCart;
+                    });
 
-            //  필요한 필드 세팅 (새로운 객체일 경우에도)
-            cart.setStudent(student);
-            cart.setLecture(lecture);
-            cart.setPriorityOrder(registerCartDTO.getPriorityOrder());
-
-            registerCartRepository.save(cart);
+            cart.setPriorityOrder(dto.getPriorityOrder());
+            registerCartRepository.save(cart); // 새거나 기존이나 save
         }
     }
 
     @Override
     public List<RegisterCartDTO> getCartDTOListByStdtId(Integer stdtId) {
         return registerCartRepository.findCartDTOByStdtId(stdtId);
+    }
+
+    @Override
+    public void deleteCartItem(Integer stdtId, Integer lectureId) {
+        StudentInfo student = studentRepository.findByStdtId(stdtId)
+                .orElseThrow(() -> new IllegalArgumentException("학생 정보가 없습니다."));
+
+        LectureInfo lecture = lectureRepository.findByLectureId(lectureId)
+                .orElseThrow(() -> new IllegalArgumentException("강의 정보가 없습니다."));
+
+        RegisterCart cart = registerCartRepository.findByStudentAndLecture(student, lecture)
+                .orElseThrow(() -> new IllegalStateException("장바구니 항목이 존재하지 않습니다."));
+
+        registerCartRepository.delete(cart);
     }
 
 }
