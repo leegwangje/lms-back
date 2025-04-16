@@ -18,5 +18,8 @@ public interface AssignmentSubmitRepository extends JpaRepository<AssignmentSubm
     @Query("update AssignmentSubmit set score = :score where assignmentSubmitId = :assignmentId")
     int updateViews(Integer assignmentId, Integer score);
 
+    int countByLecture_LectureId(Integer lectureId);
+
+    List<AssignmentSubmit> findByLecture_LectureIdAndStudent_StdtId(Integer lectureId, Integer stdtId);
 
 }

@@ -15,5 +15,6 @@ public class AssignmentsViewDTO {
     private String submissionDate;
     private String fileName;
     private int score;
+    private int lectureId;
     private String uuid;
 }
