@@ -39,4 +39,5 @@ public interface RegisterClassRepository extends JpaRepository<RegisterClass, In
 
     Optional<RegisterClass> findByLectureId_LectureIdAndStdtId_StdtId(Integer lectureId, Integer stdtId);
 
+    RegisterClass findByRegisterId(Integer registerId);
 }

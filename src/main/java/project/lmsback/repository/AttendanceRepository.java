@@ -13,5 +13,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     Optional<Attendance> findByRegisterClassAndContent(RegisterClass registerClass, LectureContent content);
 
     List<Attendance> findByRegisterClass(RegisterClass registerClass);
+    List<Attendance> findByRegisterClass_RegisterId(Integer registerId);
 
 }
