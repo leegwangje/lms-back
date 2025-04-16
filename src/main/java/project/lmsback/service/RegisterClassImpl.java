@@ -67,8 +67,8 @@ public class RegisterClassImpl implements RegisterClassService{
                         .email(studentInfo.getEmail())
                         .major(studentInfo.getMajor())
                         .hpNo(studentInfo.getHpNo())
-                        .progressRate(attendanceRate)
-                        .submissionRate(submitRate)
+                        .progressRate(attendanceRate*100)
+                        .submissionRate(submitRate*100)
                         .build();
 
                 log.info("등록된 학생 ID: {}", studentInfo.getStdtId());
